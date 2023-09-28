@@ -29,6 +29,20 @@ RUN mkdir -p /opt/apollo/neo/data/log && chmod -R 777 /opt/apollo/neo
 
 COPY rcfiles/setup.sh /opt/apollo/neo/   
 
+ENV DEBIAN_FRONTEND=noninteractive
+ARG USERNAME=sameh.mohamed
+ARG USERID=1001
+
+RUN groupadd --gid $USERID $USERNAME \
+  && useradd -s /bin/bash --uid $USERID --gid $USERID -m $USERNAME \
+  && apt-get update \
+  && apt-get install -y sudo  \
+  && echo $USERNAME ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME\
+  && chmod 0440 /etc/sudoers.d/$USERNAME \
+  && sudo usermod -a -G root,dialout,adm,cdrom,sudo,audio,dip,video,plugdev $USERNAME \
+  && rm -rf /var/lib/apt/lists/* \
+  && echo "source /usr/share/bash-completion/completions/git" >> /home/$USERNAME/.bashrc
+
 RUN echo "source /opt/apollo/neo/setup.sh" >> /etc/skel/.bashrc
 
 RUN echo "deb https://apollo-pkg-beta.bj.bcebos.com/neo/beta bionic main" >> /etc/apt/sources.list

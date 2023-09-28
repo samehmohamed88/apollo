@@ -127,8 +127,8 @@ function determine_cuda_versions() {
     if [[ "${arch}" == "x86_64" ]]; then
         if [[ "${dist}" == "stable" ]]; then
             CUDA_LITE=11.1
-            CUDNN_VERSION="8.0.4.30"
-            TENSORRT_VERSION="7.2.1"
+            CUDNN_VERSION="8.0.5.39"
+            TENSORRT_VERSION="8.0.0"
         else # testing
             CUDA_LITE=11.1
             CUDNN_VERSION="8.0.4.30"
@@ -199,7 +199,7 @@ function determine_images_in_out_x86_64() {
     local base_amd_image="rocm/dev-ubuntu-18.04:5.1.1-complete"
     if [[ "${stage}" == "base" ]]; then
         if [[ "${TARGET_GPU}" == "nvidia" ]]; then
-            IMAGE_IN="nvidia/cuda:${CUDA_LITE}-devel-ubuntu${UBUNTU_LTS}"
+            IMAGE_IN="nvidia/cuda:${CUDA_LITE}.1-devel-ubuntu${UBUNTU_LTS}"
             IMAGE_OUT="${base_nvidia_image}"
         else
             echo "The base Docker for AMD GPU is not ready. Exiting..."
@@ -219,7 +219,7 @@ function determine_images_in_out_x86_64() {
         fi
     elif [[ "${stage}" == "dev" ]]; then
         if [[ "${dist}" == "stable" ]]; then
-            IMAGE_IN="${APOLLO_REPO}:cyber-${arch}-${UBUNTU_LTS}-${PREV_IMAGE_TIMESTAMP}"
+            IMAGE_IN="${APOLLO_REPO}:cyber-${arch}-${UBUNTU_LTS}-20230927_1821"
             IMAGE_OUT="${APOLLO_REPO}:dev-${arch}-${UBUNTU_LTS}-${timestamp}"
         else
             IMAGE_IN="${APOLLO_REPO}:cyber-${arch}-${UBUNTU_LTS}-testing-${PREV_IMAGE_TIMESTAMP}"

@@ -21,20 +21,20 @@ RUN M="${CUDNN_VERSION%%.*}" \
 
 ENV CUDNN_VERSION ${CUDNN_VERSION}
 
-RUN PATCH="-1+cuda${CUDA_LITE}" && apt-get -y update \
-    && apt-get install -y --no-install-recommends \
-    libnvinfer7="${TENSORRT_VERSION}${PATCH}" \
-    libnvonnxparsers7="${TENSORRT_VERSION}${PATCH}" \
-    libnvparsers7="${TENSORRT_VERSION}${PATCH}" \
-    libnvinfer-plugin7="${TENSORRT_VERSION}${PATCH}" \
-    libnvinfer-dev="${TENSORRT_VERSION}${PATCH}" \
-    libnvonnxparsers-dev="${TENSORRT_VERSION}${PATCH}" \
-    libnvparsers-dev="${TENSORRT_VERSION}${PATCH}" \
-    libnvinfer-plugin-dev="${TENSORRT_VERSION}${PATCH}" \
-    && apt-get -y clean \
-    && rm -rf /var/lib/apt/lists/* \
-    && rm -f /etc/apt/sources.list.d/nvidia-ml.list \
-    && rm -f /etc/apt/sources.list.d/cuda.list
+ RUN PATCH="-1+cuda${CUDA_LITE}" && apt-get -y update \
+     && apt-get install -y --no-install-recommends \
+     libnvinfer7="${TENSORRT_VERSION}${PATCH}" \
+     libnvonnxparsers7="${TENSORRT_VERSION}${PATCH}" \
+     libnvparsers7="${TENSORRT_VERSION}${PATCH}" \
+     libnvinfer-plugin7="${TENSORRT_VERSION}${PATCH}" \
+     libnvinfer-dev="${TENSORRT_VERSION}${PATCH}" \
+     libnvonnxparsers-dev="${TENSORRT_VERSION}${PATCH}" \
+     libnvparsers-dev="${TENSORRT_VERSION}${PATCH}" \
+     libnvinfer-plugin-dev="${TENSORRT_VERSION}${PATCH}" \
+     && apt-get -y clean \
+     && rm -rf /var/lib/apt/lists/* \
+     && rm -f /etc/apt/sources.list.d/nvidia-ml.list \
+     && rm -f /etc/apt/sources.list.d/cuda.list
 
 ENV TENSORRT_VERSION ${TENSORRT_VERSION}
 
